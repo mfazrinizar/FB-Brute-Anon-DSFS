@@ -17,14 +17,14 @@ class bcolors:
 
 print bcolors.BOLD + ''
 print '\t   # Anon6372098 FB Brute Force'
-print '\t   # 27-10-2018'
+print '\t   # Yt Channel : D4RK SYST3M F41LUR3 S33K3R'
 print '\t   # Github: /Anon6372098'
 print '\t   # Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)'
-print '\t   # anon6372098@gmail.com  PGP: 7ECD8357'
+print '\t   # anon6372098@gmail.com  '
 print '' + bcolors.ENDC
 
-email = str(raw_input("[?] Kullanıcı adı | Kullanıcı ID | E-Posta | Telefon numarası :> "))
-passwordlist = str(raw_input("[?] Wordlist dosyasının adı :> "))
+email = str(raw_input("[?] Username | User ID | E-Mail | Phone Number/No.HP :> "))
+passwordlist = str(raw_input("[?] The wordlist name/Nama wordlistnya :> "))
 
 useragents = [('User-agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)')]
 
