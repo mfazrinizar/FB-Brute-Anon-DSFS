@@ -4,7 +4,7 @@
 #Creator : Anon6372098
 try:
  ##----------- Import Libraries -----------##
- import socket,time,os,optparse,mechanize  ##
+ import socket,time,os,sys,optparse,mechanize  ##
  ##----------------------------------------##
 except:
 	print("[!] The [ mechanize library ] is Missing!\n[*] Please Install it Using this command> [ pip install mechanize ]")
@@ -23,16 +23,21 @@ def check():                                      #
 check = check()                                   #
 ###################################################
 
+os.system("clear")
+os.system("figlet FB Brute DSFS")
+
 parse = optparse.OptionParser("""\nUsage: python ./anonfbbrute.py -T <Target Email> -W <Wordlist File>
 OPTIONS:
         -t <target email>        ::>   Set Target Email
         -w <word list file>      ::>   Set Wordlist File 
-Example:
+Example/Contoh:
         ./anonfbbrute.py -t target@gmail.com -w /storage/emulated/0/passwords.txt
 
-Creator : Anon6372098
-Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)
+Creator    : Anon6372098
+Team       : D4RK SYST3M F41LUR3 S33K3R (DSFS)
 Yt Channel : D4RK SYST3M F41LUR3 S33K3R 
+Github     : https://www.github.com/Anon6372098
+Email      : anon6372098@gmail.com
 """)
 def Main():
    parse.add_option("-t","--target",'-T','--TARGET',dest="taremail",type="string",
@@ -46,7 +51,7 @@ def Main():
      global check
      if check == True:
 	         try:
-		    passwfile = open(passw, "r")
+		    passwfile = open(passw, 'r')
 		 except:
                         print("\n[!] No Such File: "+passw+"  !!!\n")
                         exit(1)
@@ -102,9 +107,9 @@ if __name__=='__main__':
 #####################   END OF TOOL  #########################
 #####################                #########################
 ##############################################################
-#This Tool by Anon6372098
-#Team D4RK SYST3M F41LUR3 S33K3R (DSFS)
+#Creator    : Anon6372098
+#Team       : D4RK SYST3M F41LUR3 S33K3R (DSFS)
 #Yt Channel : D4RK SYST3M F41LUR3 S33K3R 
 #Contact me : anon6372098@gmail.com
-#Have a nice day :)
-#GoodBye
+#Thanks for Using my tool/Terima kasih telah menggunakan tool saya
+#GoodBye/Selamat Tinggal
