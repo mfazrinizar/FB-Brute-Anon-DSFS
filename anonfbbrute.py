@@ -7,7 +7,8 @@ import cookielib
 import random
 
 
-
+os.system("clear")	
+os.system("figlet FB Brute DSFS")
 
 email = str(raw_input("Enter the Facebook Username (or) Email (or) Phone Number : "))
 
@@ -63,9 +64,6 @@ def search():
 #welcome 
 def welcome():
 	wel = """
-
-os.system("clear")	
-os.system("figlet FB Brute DSFS"
 	
 	+========================================+
         |......... Facebook Brute DSFS ..........|
