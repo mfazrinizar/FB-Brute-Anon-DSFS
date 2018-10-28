@@ -28,8 +28,8 @@ os.system("figlet FB Brute DSFS")
 
 parse = optparse.OptionParser("""\nUsage: python ./anonfbbrute.py -T <Target Email> -W <Wordlist File>
 OPTIONS:
-        -t <target email>        ::>   Set Target Email
-        -w <word list file>      ::>   Set Wordlist File 
+        -t <target email>        ::>   Set Target Email/Isi Email Target
+        -w <word list file>      ::>   Set Wordlist File/Isi Tempat Wordlist
 Example/Contoh:
         ./anonfbbrute.py -t target@gmail.com -w /storage/emulated/0/passwords.txt
 
@@ -51,7 +51,7 @@ def Main():
      global check
      if check == True:
 	         try:
-		    passwfile = open(passw, 'r')
+		    passwfile = open(passw,'r')
 		 except:
                         print("\n[!] No Such File: "+passw+"  !!!\n")
                         exit(1)
