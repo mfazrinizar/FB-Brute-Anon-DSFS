@@ -63,7 +63,8 @@ def search():
 #welcome 
 def welcome():
 	wel = """
-	
+
+os.system("clear")	
 os.system("figlet FB Brute DSFS"
 	
 	+========================================+
