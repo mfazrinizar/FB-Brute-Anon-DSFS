@@ -64,16 +64,16 @@ def search():
 def welcome():
 	wel = ""
 os.system("FB Brute DSFS")
-        +=========================================+
-        |......... Facebook Brute DSFS ...........|
-        +-----------------------------------------+
-        |         Creator : Anon6372098           | 
-        |      Thanks to  : Tuan c4rt00nw4r       |
- 	|         Github  : /Anon6372098.         |
-        | Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)|
-	+=========================================+
-        |.......... Facebook Brute DSFS ..........|
-        +-----------------------------------------+\n\n
+        +========================================+
+        |......... Facebook Brute DSFS ..........|
+        +----------------------------------------+
+        |         Creator : Anon6372098          | 
+        |      Thanks to  : Tuan c4rt00nw4r      |
+ 	|         Github  : /Anon6372098.        |
+        |Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)|
+	+========================================+
+        |.......... Facebook Brute DSFS .........|
+        +----------------------------------------+\n\n
 """
 	total = open(passwordlist,"r")
 	total = total.readlines()
