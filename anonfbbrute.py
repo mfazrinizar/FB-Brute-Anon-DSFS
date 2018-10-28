@@ -62,9 +62,11 @@ def search():
 		
 #welcome 
 def welcome():
-	wel = ""
-os.system("FB Brute DSFS")
-        +========================================+
+	wel = """
+	
+os.system("figlet FB Brute DSFS"
+	
+	+========================================+
         |......... Facebook Brute DSFS ..........|
         +----------------------------------------+
         |         Creator : Anon6372098          | 
