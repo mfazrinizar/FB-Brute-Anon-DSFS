@@ -24,7 +24,7 @@ check = check()                                   #
 ###################################################
 
 os.system("clear")
-os.system("figlet FB Brute DSFS")
+os.system("figlet FB BRUTE DSFS")
 
 parse = optparse.OptionParser("""\nUsage: python ./anonfbbrute.py -T <Target Email> -W <Wordlist File>
 OPTIONS:
